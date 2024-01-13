@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install:all": "pnpm i && concurrently \"pnpm i --prefix ./client\" \"pnpm i --prefix ./server\"",
-    "start:client": "cd client && pnpm dev",
-    "start:server": "cd server && pnpm dev"
+    "start:client": "pnpm --prefix ./server dev",
+    "start:server": "pnpm --prefix ./server dev"
   },
   "keywords": [],
   "author": "",
