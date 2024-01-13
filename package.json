@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install:all": "cd client && pnpm i && cd ../server && pnpm i",
+    "install:all": "pnpm i && concurrently \"pnpm i --prefix ./client\" \"pnpm i --prefix ./server\"",
     "start:client": "cd client && pnpm dev",
     "start:server": "cd server && pnpm dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
