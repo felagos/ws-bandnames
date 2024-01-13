@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import "./App.scss";
+import "./MiniChat.scss";
 
 io('http://localhost:3000');
 
