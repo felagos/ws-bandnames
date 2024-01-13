@@ -13,7 +13,7 @@ function MiniChat() {
   }, []);
 
   useEffect(() => {
-    socket.emit('message-client', 'Hello from Client!');
+    socket.emit('message-client', { message: 'Hello from Client!' });
   }, []);
 
   return (
