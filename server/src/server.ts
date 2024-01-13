@@ -14,6 +14,11 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('a user connected with id', socket.id);
   socket.emit('message-welcome', 'Hello from server');
+
+  io.on('message-client', (payload) => {
+    console.log('message-client', payload);
+  });
+
 });
 
 server.listen(envs.PORT, () => {

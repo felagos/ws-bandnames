@@ -12,9 +12,13 @@ function MiniChat() {
     });
   }, []);
 
+  useEffect(() => {
+    socket.emit('message-client', 'Hello from Client!');
+  }, []);
+
   return (
     <div className="chat">
-    <h1>Mini Chat</h1>
+      <h1>Mini Chat</h1>
     </div>
   )
 }
