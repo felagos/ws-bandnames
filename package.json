@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install:all": "cd client && pnpm i && cd ../server && pnpm i",
+    "install:all": "cd client && pnpm i && cd server && pnpm i",
     "start:client": "cd client && pnpm dev"
   },
   "keywords": [],
