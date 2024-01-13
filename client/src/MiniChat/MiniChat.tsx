@@ -1,9 +1,16 @@
 import { io } from 'socket.io-client';
 import "./MiniChat.scss";
+import { useEffect } from 'react';
 
-io('http://localhost:3000');
+const socket = io('http://localhost:3000');
 
 function MiniChat() {
+
+  useEffect(() => {
+    socket.on('message-welcome', (payload) => {
+      console.log(payload);
+    });
+  }, []);
 
   return (
     <div className="chat">
