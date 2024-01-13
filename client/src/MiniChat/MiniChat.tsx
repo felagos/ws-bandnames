@@ -3,7 +3,7 @@ import "./App.scss";
 
 io('http://localhost:3000');
 
-function App() {
+function MiniChat() {
 
   return (
     <div className="chat">
@@ -12,4 +12,4 @@ function App() {
   )
 }
 
-export default App
+export default MiniChat
