@@ -5,7 +5,7 @@ export const BandAdd = () => {
 		<>
 			<h3>Agregar Banda</h3>
 			<Form>
-				<Input placeholder="Nuevo nombre de banda" />
+				<Input placeholder="Nuevo nombre de banda" size="large" />
 			</Form>
 		</>
 	);
