@@ -6,9 +6,7 @@ import "./App.scss";
 export const App = () => {
 	return (
 		<Layout>
-			<div>
-				<Status className="status" />
-			</div>
+			<Status className="status" />
 			<h1>BandNames</h1>
 			<Divider plain />
 			<Row gutter={[24, 24]}>
