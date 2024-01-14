@@ -1,10 +1,18 @@
 .app {
     &__title {
-        margin-top: 8px;
+        margin-top: 16px;
     }
 
     &__status {
         margin-top: 16px;
         width: 200px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .app {
+        &__status {
+            width: 100%;
+        }
     }
 }
