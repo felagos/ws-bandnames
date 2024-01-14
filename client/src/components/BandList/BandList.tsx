@@ -46,8 +46,8 @@ export const BandList = () => {
 	const [dataSource] = useState(() => data.map(d => (
 		{
 			...d,
-			add: <Button onClick={addBand()} type="primary">+1</Button>,
-			delete: <Button onClick={deleteBand()} type="primary" danger>Borrar</Button>
+			add: <Button onClick={addBand()} type="primary" className="table__btn--50">+1</Button>,
+			delete: <Button onClick={deleteBand()} type="primary" danger className="table__btn--50">Borrar</Button>
 		}
 	)))
 
