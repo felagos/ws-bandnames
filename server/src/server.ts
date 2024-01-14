@@ -1,26 +1,4 @@
-import express from 'express';
-import http from 'http';
-import { Server } from 'socket.io';
-import { envs } from './config/envs';
+import { App } from "./app";
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: envs.CORS
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log('a user connected with id', socket.id);
-  socket.emit('message-welcome', 'Hello from server');
-
-  io.on('message-client', (payload) => {
-    console.log('message-client', payload);
-  });
-
-});
-
-server.listen(envs.PORT, () => {
-  console.log(`listening on *:${envs.PORT}`);
-});
+const serverApp = new App();
+serverApp.execute();
