@@ -4,14 +4,15 @@ import { Band } from "../../models";
 import './BandList.scss';
 
 interface Props {
-	bands: Band[]
+	bands: Band[],
+	addVote: (id: string) => () => void;
 }
 
 const columns = [
 	{
 		title: '',
-		dataIndex: 'add',
-		key: 'add'
+		dataIndex: 'vote',
+		key: 'vote'
 	},
 	{
 		title: 'Nombre',
@@ -37,15 +38,14 @@ const createDataSource = (bands: Band[]) => bands.map(band => ({
 }));
 
 
-export const BandList = ({ bands }: Props) => {
+export const BandList = ({ bands, addVote }: Props) => {
 	const deleteBand = () => () => null;
-	const addBand = () => () => null;
 
 	const data = createDataSource(bands);
 	const dataSource = data.map(d => (
 		{
 			...d,
-			add: <Button onClick={addBand()} type="primary" className="table__btn--50">+1</Button>,
+			vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn--50">+1</Button>,
 			delete: <Button onClick={deleteBand()} type="primary" danger className="table__btn--50">Borrar</Button>
 		}
 	));

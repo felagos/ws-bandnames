@@ -22,7 +22,7 @@ export const App = () => {
 		socket.on('connect', () => {
 			setIsOnline(true);
 		});
-		
+
 		socket.on('disconnect', () => {
 			setIsOnline(false);
 		});
@@ -35,6 +35,10 @@ export const App = () => {
 		});
 	}, []);
 
+	const addVote = (id: string) => () => {
+		alert(id);
+	};
+
 	return (
 		<Layout>
 			<Status isOnline={isOnline} className="app__status" />
@@ -44,7 +48,7 @@ export const App = () => {
 			<Divider plain />
 			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>
-					<BandList bands={bands} />
+					<BandList bands={bands} addVote={addVote} />
 				</Col>
 				<Col xl={12} sm={24} xs={24}>
 					<BandAdd />
