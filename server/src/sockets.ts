@@ -1,8 +1,10 @@
 import { Server } from "socket.io";
+import { BandList } from "./models";
 
 export class Sockets {
 
 	private readonly io: Server;
+	private bandList = new BandList();
 
 	constructor(io: Server) {
 		this.io = io;
@@ -13,11 +15,8 @@ export class Sockets {
 	socketEvents() {
 		this.io.on('connection', (socket) => {
 
-			socket.on('mensaje-to-server', (data) => {
-				console.log(data);
+			socket.emit('current-bands', this.bandList.getBands());
 
-				this.io.emit('mensaje-from-server', data);
-			});
 		});
 	}
 }
