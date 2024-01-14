@@ -38,6 +38,14 @@ export const App = () => {
 		socket.emit('add-vote', id);
 	};
 
+	const deleteBand = (id: string) => () => {
+		socket.emit('delete-band', id);
+	};
+
+	const addBand = (name: string) => () => {
+		socket.emit('add-band', name);
+	};
+
 	return (
 		<Layout>
 			<Status isOnline={isOnline} className="app__status" />
@@ -47,10 +55,10 @@ export const App = () => {
 			<Divider plain />
 			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>
-					<BandList bands={bands} addVote={addVote} />
+					<BandList bands={bands} addVote={addVote} deleteBand={deleteBand} />
 				</Col>
 				<Col xl={12} sm={24} xs={24}>
-					<BandAdd />
+					<BandAdd addBand={addBand} />
 				</Col>
 			</Row>
 		</Layout>

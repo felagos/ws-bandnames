@@ -6,6 +6,7 @@ import './BandList.scss';
 interface Props {
 	bands: Band[],
 	addVote: (id: string) => () => void;
+	deleteBand: (id: string) => () => void;
 }
 
 const columns = [
@@ -38,15 +39,13 @@ const createDataSource = (bands: Band[]) => bands.map(band => ({
 }));
 
 
-export const BandList = ({ bands, addVote }: Props) => {
-	const deleteBand = () => () => null;
-
+export const BandList = ({ bands, addVote, deleteBand }: Props) => {
 	const data = createDataSource(bands);
 	const dataSource = data.map(d => (
 		{
 			...d,
 			vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn--50">+1</Button>,
-			delete: <Button onClick={deleteBand()} type="primary" danger className="table__btn--50">Borrar</Button>
+			delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn--50">Borrar</Button>
 		}
 	));
 

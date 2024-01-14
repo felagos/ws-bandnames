@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { BandList } from "./models";
+import { Band, BandList } from "./models";
 
 export class Sockets {
 
@@ -27,6 +27,17 @@ export class Sockets {
 				this.io.emit('current-bands', this.bandList.getBands());
 			});
 
+			socket.on('delete-band', (id: string) => {
+				this.bandList.removeBand(id);
+				this.io.emit('current-bands', this.bandList.getBands());
+			});
+
+			socket.on('add-band', (name: string) => {
+				const band = new Band(name);
+				this.bandList.addBand(band);
+				this.io.emit('current-bands', this.bandList.getBands());
+			});
+			
 		});
 	}
 }
