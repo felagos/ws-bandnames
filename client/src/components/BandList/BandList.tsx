@@ -1,19 +1,11 @@
 import { Button, Table } from "antd";
-import { useState } from "react";
+import { Band } from "../../models";
+
 import './BandList.scss';
 
-const data = [
-	{
-		key: 1,
-		name: 'Mike',
-		votes: 32,
-	},
-	{
-		key: 2,
-		name: 'John',
-		votes: 42,
-	},
-];
+interface Props {
+	bands: Band[]
+}
 
 const columns = [
 	{
@@ -38,18 +30,25 @@ const columns = [
 	},
 ];
 
+const createDataSource = (bands: Band[]) => bands.map(band => ({
+	key: band.id,
+	name: band.name,
+	votes: band.votes
+}));
 
-export const BandList = () => {
+
+export const BandList = ({ bands }: Props) => {
 	const deleteBand = () => () => null;
 	const addBand = () => () => null;
 
-	const [dataSource] = useState(() => data.map(d => (
+	const data = createDataSource(bands);
+	const dataSource = data.map(d => (
 		{
 			...d,
 			add: <Button onClick={addBand()} type="primary" className="table__btn--50">+1</Button>,
 			delete: <Button onClick={deleteBand()} type="primary" danger className="table__btn--50">Borrar</Button>
 		}
-	)))
+	));
 
 	return (
 		<Table

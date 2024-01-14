@@ -4,6 +4,7 @@ import { BandAdd, BandList, Layout, Status } from "./components";
 import io from "socket.io-client";
 
 import "./App.scss";
+import { Band } from "./models";
 
 
 const connectSocket = () => {
@@ -15,6 +16,7 @@ const socket = connectSocket();
 
 export const App = () => {
 	const [isOnline, setIsOnline] = useState(socket.connected);
+	const [bands, setBands] = useState<Band[]>([]);
 
 	useEffect(() => {
 		socket.on('connect', () => {
@@ -23,6 +25,13 @@ export const App = () => {
 		
 		socket.on('disconnect', () => {
 			setIsOnline(false);
+		});
+	}, []);
+
+	useEffect(() => {
+		socket.on('current-bands', (bands: Band[]) => {
+			console.log('current-bands', bands);
+			setBands(bands);
 		});
 	}, []);
 
@@ -35,7 +44,7 @@ export const App = () => {
 			<Divider plain />
 			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>
-					<BandList />
+					<BandList bands={bands} />
 				</Col>
 				<Col xl={12} sm={24} xs={24}>
 					<BandAdd />
