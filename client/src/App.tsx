@@ -7,17 +7,24 @@ import "./App.scss";
 
 const connectSocket = () => {
 	const socket = io("http://localhost:3000");
-
 	return socket;
 }
 
+const socket = connectSocket();
+
 export const App = () => {
-	const [socket] = useState(connectSocket());
-	const [isOnline, setIsOnline] = useState(false);
+	const [isOnline, setIsOnline] = useState(socket.connected);
+
 
 	useEffect(() => {
-		setIsOnline(socket.connected);
-	}, [socket.connected, socket]);
+		socket.on('connect', () => {
+			setIsOnline(true);
+		});
+		
+		socket.on('disconnect', () => {
+			setIsOnline(false);
+		});
+	}, []);
 
 	return (
 		<Layout>

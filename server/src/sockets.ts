@@ -18,6 +18,9 @@ export class Sockets {
 
 			socket.emit('current-bands', this.bandList.getBands());
 
+			socket.on('disconnect', () => {
+				console.log('user disconnected');
+			});
 		});
 	}
 }
