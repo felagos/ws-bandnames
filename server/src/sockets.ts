@@ -14,6 +14,7 @@ export class Sockets {
 
 	socketEvents() {
 		this.io.on('connection', (socket) => {
+			console.log('Client connected');
 
 			socket.emit('current-bands', this.bandList.getBands());
 
