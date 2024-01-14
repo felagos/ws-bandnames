@@ -1,11 +1,19 @@
 .table {
-    &--center {
-        text-align: center;
-    }
+
+	text-align: center;
+
+	td:nth-child(2),
+	td:nth-child(3) {
+		font-size: 16px;
+		font-weight: 600;
+	}
 
 	&__btn {
 		&--50 {
 			width: 50%;
 		}
 	}
+
+
+
 }

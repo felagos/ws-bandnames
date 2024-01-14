@@ -56,7 +56,7 @@ export const BandList = () => {
 			dataSource={dataSource}
 			columns={columns}
 			pagination={false}
-			rowClassName="table--center"
+			rowClassName="table"
 			bordered
 		/>
 	);
