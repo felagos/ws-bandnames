@@ -5,8 +5,8 @@ export class Band {
 	private id: string
 
 	constructor(
-		private readonly name: string,
-		private readonly votes: number = 0
+		private name: string,
+		private votes: number = 0
 	) {
 		this.id = uuid();
 	}
@@ -17,6 +17,14 @@ export class Band {
 
 	getVotes(): number {
 		return this.votes;
+	}
+
+	addVote(): void {
+		this.votes++;
+	}
+
+	setName(name: string): void {
+		this.name = name;
 	}
 
 	getId(): string {

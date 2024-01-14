@@ -17,8 +17,26 @@ export class BandList {
 		this.bands.push(band);
 	}
 
-	removeBand(name: string) {
-		this.bands = this.bands.filter(band => band.getName() !== name);
+	removeBand(id: string) {
+		this.bands = this.bands.filter(band => band.getId() !== id);
+	}
+
+	addVote(id: string) {
+		this.bands = this.bands.map(band => {
+			if (band.getId() === id) {
+				band.addVote();
+			}
+			return band;
+		});
+	}
+
+	changeName(id: string, newName: string) {
+		this.bands = this.bands.map(band => {
+			if (band.getId() === id) {
+				band.setName(newName);
+			}
+			return band;
+		});
 	}
 
 	getBands(): Band[] {
