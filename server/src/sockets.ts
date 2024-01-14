@@ -21,6 +21,12 @@ export class Sockets {
 			socket.on('disconnect', () => {
 				console.log('user disconnected');
 			});
+
+			socket.on('add-vote', (id: string) => {
+				this.bandList.addVote(id);
+				this.io.emit('current-bands', this.bandList.getBands());
+			});
+
 		});
 	}
 }

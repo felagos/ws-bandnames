@@ -30,13 +30,12 @@ export const App = () => {
 
 	useEffect(() => {
 		socket.on('current-bands', (bands: Band[]) => {
-			console.log('current-bands', bands);
 			setBands(bands);
 		});
 	}, []);
 
 	const addVote = (id: string) => () => {
-		alert(id);
+		socket.emit('add-vote', id);
 	};
 
 	return (
