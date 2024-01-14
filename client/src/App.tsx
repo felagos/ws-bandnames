@@ -28,8 +28,10 @@ export const App = () => {
 
 	return (
 		<Layout>
-			<Status isOnline={isOnline} className="status" />
-			<h1>BandNames</h1>
+			<Status isOnline={isOnline} className="app__status" />
+			<div className="app__title">
+				<h1>BandNames</h1>
+			</div>
 			<Divider plain />
 			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>

@@ -1,4 +1,10 @@
-.status {
-    margin-top: 16px;
-    width: 200px;
+.app {
+    &__title {
+        margin-top: 8px;
+    }
+
+    &__status {
+        margin-top: 16px;
+        width: 200px;
+    }
 }
