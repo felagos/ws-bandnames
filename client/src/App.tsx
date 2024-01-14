@@ -31,7 +31,7 @@ export const App = () => {
 			<Status isOnline={isOnline} className="status" />
 			<h1>BandNames</h1>
 			<Divider plain />
-			<Row>
+			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>
 					<BandList />
 				</Col>
