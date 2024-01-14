@@ -4,10 +4,12 @@ import './BandList.scss';
 
 const data = [
 	{
+		key: 1,
 		name: 'Mike',
 		votes: 32,
 	},
 	{
+		key: 2,
 		name: 'John',
 		votes: 42,
 	},
@@ -42,9 +44,11 @@ export const BandList = () => {
 	const addBand = () => () => null;
 
 	const [dataSource] = useState(() => data.map(d => (
-		{ ...d, 
+		{
+			...d,
 			add: <Button onClick={addBand()} type="primary">+1</Button>,
-			delete: <Button onClick={deleteBand()} type="primary" danger>Borrar</Button> }
+			delete: <Button onClick={deleteBand()} type="primary" danger>Borrar</Button>
+		}
 	)))
 
 	return (
