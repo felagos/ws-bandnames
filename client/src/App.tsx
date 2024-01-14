@@ -1,9 +1,9 @@
 import { Col, Divider, Row } from "antd";
-import { BandAdd, BandList } from "./components";
+import { BandAdd, BandList, Layout } from "./components";
 
 export const App = () => {
 	return (
-		<div>
+		<Layout>
 			<h1>BandNames</h1>
 			<Divider plain />
 			<Row gutter={[24, 24]}>
@@ -14,7 +14,6 @@ export const App = () => {
 					<BandAdd />
 				</Col>
 			</Row>
-
-		</div>
+		</Layout>
 	);
 }
