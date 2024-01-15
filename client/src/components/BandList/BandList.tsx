@@ -44,8 +44,8 @@ export const BandList = ({ bands, addVote, deleteBand }: Props) => {
 	const dataSource = data.map(d => (
 		{
 			...d,
-			vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn--50">+1</Button>,
-			delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn--50">Borrar</Button>
+			vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn">+1</Button>,
+			delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn">Borrar</Button>
 		}
 	));
 
@@ -54,7 +54,8 @@ export const BandList = ({ bands, addVote, deleteBand }: Props) => {
 			dataSource={dataSource}
 			columns={columns}
 			pagination={false}
-			rowClassName="table"
+			className="table"
+			rowClassName="table--cell"
 			bordered
 		/>
 	);

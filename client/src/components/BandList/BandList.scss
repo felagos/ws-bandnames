@@ -1,6 +1,9 @@
 .table {
+	overflow-x: scroll;
 
-	text-align: center;
+	&--cell {
+		text-align: center;
+	}
 
 	td:nth-child(2),
 	td:nth-child(3) {
@@ -13,7 +16,4 @@
 			width: 50%;
 		}
 	}
-
-
-
 }
