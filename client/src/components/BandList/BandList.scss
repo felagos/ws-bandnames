@@ -17,3 +17,13 @@
 		}
 	}
 }
+
+@media (max-width: 400px) {
+	.table {
+		overflow-x: scroll;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
