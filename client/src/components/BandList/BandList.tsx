@@ -55,7 +55,7 @@ export const BandList = ({ bands, addVote, deleteBand }: Props) => {
 			columns={columns}
 			pagination={false}
 			className="table"
-			rowClassName="table--cell"
+			rowClassName="table--center"
 			bordered
 		/>
 	);
