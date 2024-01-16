@@ -57,6 +57,10 @@ export const BandList = () => {
 		socket.on('current-bands', (bands: Band[]) => {
 			setBands(bands);
 		});
+
+		return () => {
+			socket.off('current-bands');
+		}
 	}, [socket]);
 
 	return (
