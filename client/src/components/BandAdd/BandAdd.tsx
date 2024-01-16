@@ -5,15 +5,19 @@ import './BandAdd.scss';
 import { useSocketContext } from "../../context";
 
 export const BandAdd = () => {
+	const [name, setName] = useState('');
+	const [isDisabled, setIsDisabled] = useState(true);
 
 	const { socket } = useSocketContext();
 
-	const [name, setName] = useState('');
-	useSocketContext();
-
+	
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.value.length > 0) return;
-		setName(e.target.value);
+		const value = e.target.value.trim()
+		if (value.length === 0) setIsDisabled(true);
+		else {
+			setName(value);
+			setIsDisabled(false);
+		}
 	}
 
 	const addBand = () => {
@@ -26,7 +30,7 @@ export const BandAdd = () => {
 			<div className="add-form">
 				<div className="add-form__item">
 					<Input placeholder="Nuevo nombre de banda" size="large" onChange={onChange} />
-					<Button onClick={addBand} type="primary">Agregar</Button>
+					<Button onClick={addBand} type="primary" disabled={isDisabled}>Agregar</Button>
 				</div>
 			</div>
 		</>
