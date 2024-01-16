@@ -28,13 +28,6 @@ const columns = [
 	},
 ];
 
-const createDataSource = (bands: Band[]) => bands.map(band => ({
-	key: band.id,
-	name: band.name,
-	votes: band.votes
-}));
-
-
 export const BandList = () => {
 	const { socket } = useSocketContext();
 	const [bands, setBands] = useState<Band[]>([]);
@@ -48,12 +41,14 @@ export const BandList = () => {
 	}, [socket]);
 
 	const dataSource = useMemo(() => {
-		const data = createDataSource(bands);
-		return data.map(d => (
+		return bands.map(d => (
 			{
 				...d,
-				vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn">+1</Button>,
-				delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn">Borrar</Button>
+				key: d.id,
+				name: d.name,
+				votes: d.votes,
+				vote: <Button onClick={addVote(d.id)} type="primary" className="table__btn">+1</Button>,
+				delete: <Button onClick={deleteBand(d.id)} type="primary" danger className="table__btn">Borrar</Button>
 			}
 		));
 	}, [addVote, bands, deleteBand])
