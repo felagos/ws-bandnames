@@ -16,7 +16,7 @@ export const BandAdd = () => {
 		setName(e.target.value);
 	}
 
-	const addBand = (name: string) => () => {
+	const addBand = () => {
 		socket.emit('add-band', name);
 	};
 
@@ -26,7 +26,7 @@ export const BandAdd = () => {
 			<div className="add-form">
 				<div className="add-form__item">
 					<Input placeholder="Nuevo nombre de banda" size="large" onChange={onChange} />
-					<Button onClick={addBand(name)} type="primary">Agregar</Button>
+					<Button onClick={addBand} type="primary">Agregar</Button>
 				</div>
 			</div>
 		</>
