@@ -1,36 +1,45 @@
 import Chart from 'chart.js/auto';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSocketContext } from '../../context';
+import { Band } from '../../models';
 
 export const ChartBand = () => {
 	const { bands } = useSocketContext();
-	const refChart = useRef<Chart<"bar", number[], string>>();
+	const refCanvas = useRef<HTMLCanvasElement>(null);
+	const chartRef = useRef<Chart | null>(null); // Add this line
 
-	const bandsName = bands.map(b => b.name);
+	const createChart = useCallback((bands: Band[] = []) => {
+		if (chartRef.current) { // Add this block
+			chartRef.current.destroy();
+			chartRef.current = null;
+	}
 
-	const refCanvas = useCallback((node: HTMLCanvasElement) => {
-		refChart.current?.destroy();
-
-		new Chart(node, {
-			type: 'bar',
-			data: {
-				labels: bandsName,
-				datasets: [{
-					label: '# of Votes',
-					data: [12, 19, 3, 5, 2, 3],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				indexAxis: 'y',
-				scales: {
-					y: {
-						stacked: true,
+	if (refCanvas.current) {
+			chartRef.current = new Chart(refCanvas.current, {
+					type: 'bar',
+					data: {
+							labels: bands.map(b => b.name),
+							datasets: [{
+									label: '# of Votes',
+									data: bands.map(b => b.votes),
+									borderWidth: 1
+							}]
+					},
+					options: {
+							indexAxis: 'y',
+							scales: {
+									y: {
+											stacked: true,
+									}
+							}
 					}
-				}
-			}
-		});
-	}, [bandsName])
+			});
+	}
+	}, [])
+
+	useEffect(() => {
+		createChart();
+	}, [bands, createChart]);
 
 	return (
 		<canvas ref={refCanvas}></canvas>
