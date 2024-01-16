@@ -1,9 +1,9 @@
+import { useCallback, useMemo } from "react";
 import { Button, Table } from "antd";
-import { Band } from "../../models";
+
+import { useSocketContext } from "../../context";
 
 import './BandList.scss';
-import { useSocketContext } from "../../context";
-import { useCallback, useEffect, useMemo, useState } from "react";
 
 const columns = [
 	{
@@ -29,8 +29,7 @@ const columns = [
 ];
 
 export const BandList = () => {
-	const { socket } = useSocketContext();
-	const [bands, setBands] = useState<Band[]>([]);
+	const { socket, bands } = useSocketContext();
 
 	const addVote = useCallback((id: string) => () => {
 		socket.emit('add-vote', id);
@@ -52,15 +51,6 @@ export const BandList = () => {
 		));
 	}, [addVote, bands, deleteBand])
 
-	useEffect(() => {
-		socket.on('current-bands', (bands: Band[]) => {
-			setBands(bands);
-		});
-
-		return () => {
-			socket.off('current-bands');
-		}
-	}, [socket]);
 
 	return (
 		<Table
