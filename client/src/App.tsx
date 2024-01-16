@@ -1,32 +1,11 @@
-import { useEffect, useState } from "react";
 import { Col, Divider, Row } from "antd";
 import { BandAdd, BandList, Layout, Status } from "./components";
-import { Band } from "./models";
 import { useSocketContext } from "./context";
 
 import "./App.scss";
 
 export const App = () => {
-	const { socket, isOnline } = useSocketContext();
-	const [bands, setBands] = useState<Band[]>([]);
-
-	useEffect(() => {
-		socket.on('current-bands', (bands: Band[]) => {
-			setBands(bands);
-		});
-	}, [socket]);
-
-	const addVote = (id: string) => () => {
-		socket.emit('add-vote', id);
-	};
-
-	const deleteBand = (id: string) => () => {
-		socket.emit('delete-band', id);
-	};
-
-	const addBand = (name: string) => () => {
-		socket.emit('add-band', name);
-	};
+	const { isOnline } = useSocketContext();
 
 	return (
 		<Layout>
@@ -40,7 +19,7 @@ export const App = () => {
 					<BandList />
 				</Col>
 				<Col xl={12} sm={24} xs={24}>
-					<BandAdd addBand={addBand} />
+					<BandAdd />
 				</Col>
 			</Row>
 		</Layout>

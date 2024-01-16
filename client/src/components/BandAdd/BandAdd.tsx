@@ -4,11 +4,9 @@ import { useState } from "react";
 import './BandAdd.scss';
 import { useSocketContext } from "../../context";
 
-interface Props {
-	addBand: (name: string) => () => void;
-}
+export const BandAdd = () => {
 
-export const BandAdd = ({ addBand }: Props) => {
+	const { socket } = useSocketContext();
 
 	const [name, setName] = useState('');
 	useSocketContext();
@@ -17,6 +15,10 @@ export const BandAdd = ({ addBand }: Props) => {
 		if (e.target.value.length > 0) return;
 		setName(e.target.value);
 	}
+
+	const addBand = (name: string) => () => {
+		socket.emit('add-band', name);
+	};
 
 	return (
 		<>
