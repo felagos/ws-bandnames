@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 import { Col, Divider, Row } from "antd";
 import { BandAdd, BandList, Layout, Status } from "./components";
 import { Band } from "./models";
-import { useSocket } from "./hooks";
+import { useSocketContext } from "./context";
 
 import "./App.scss";
 
-const URL_SOCKET = "http://localhost:3000";
-
-
 export const App = () => {
-	const { socket, isOnline } = useSocket(URL_SOCKET);
+	const { socket, isOnline } = useSocketContext();
 	const [bands, setBands] = useState<Band[]>([]);
 
 	useEffect(() => {
