@@ -30,7 +30,7 @@ export const ChartBand = () => {
 				}
 			}
 		});
-	}, [])
+	}, [bandsName])
 
 	return (
 		<canvas ref={refCanvas}></canvas>
