@@ -43,7 +43,6 @@ export const BandList = () => {
 	const dataSource = useMemo(() => {
 		return bands.map(d => (
 			{
-				...d,
 				key: d.id,
 				name: d.name,
 				votes: d.votes,
