@@ -2,12 +2,8 @@ import { Button, Table } from "antd";
 import { Band } from "../../models";
 
 import './BandList.scss';
-
-interface Props {
-	bands: Band[],
-	addVote: (id: string) => () => void;
-	deleteBand: (id: string) => () => void;
-}
+import { useSocketContext } from "../../context";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const columns = [
 	{
@@ -39,15 +35,34 @@ const createDataSource = (bands: Band[]) => bands.map(band => ({
 }));
 
 
-export const BandList = ({ bands, addVote, deleteBand }: Props) => {
-	const data = createDataSource(bands);
-	const dataSource = data.map(d => (
-		{
-			...d,
-			vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn">+1</Button>,
-			delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn">Borrar</Button>
-		}
-	));
+export const BandList = () => {
+	const { socket } = useSocketContext();
+	const [bands, setBands] = useState<Band[]>([]);
+
+	const addVote = useCallback((id: string) => () => {
+		socket.emit('add-vote', id);
+	}, [socket]);
+
+	const deleteBand = useCallback((id: string) => () => {
+		socket.emit('delete-band', id);
+	}, [socket]);
+
+	const dataSource = useMemo(() => {
+		const data = createDataSource(bands);
+		return data.map(d => (
+			{
+				...d,
+				vote: <Button onClick={addVote(d.key)} type="primary" className="table__btn">+1</Button>,
+				delete: <Button onClick={deleteBand(d.key)} type="primary" danger className="table__btn">Borrar</Button>
+			}
+		));
+	}, [addVote, bands, deleteBand])
+
+	useEffect(() => {
+		socket.on('current-bands', (bands: Band[]) => {
+			setBands(bands);
+		});
+	}, [socket]);
 
 	return (
 		<Table

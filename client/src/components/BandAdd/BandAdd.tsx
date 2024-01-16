@@ -2,6 +2,7 @@ import { Button, Input } from "antd";
 import { useState } from "react";
 
 import './BandAdd.scss';
+import { useSocketContext } from "../../context";
 
 interface Props {
 	addBand: (name: string) => () => void;
@@ -10,10 +11,11 @@ interface Props {
 export const BandAdd = ({ addBand }: Props) => {
 
 	const [name, setName] = useState('');
+	useSocketContext();
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.value.length > 0) return;
 		setName(e.target.value);
-
 	}
 
 	return (

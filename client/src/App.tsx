@@ -37,7 +37,7 @@ export const App = () => {
 			<Divider plain />
 			<Row gutter={[16, 16]}>
 				<Col xl={12} sm={24} xs={24}>
-					<BandList bands={bands} addVote={addVote} deleteBand={deleteBand} />
+					<BandList />
 				</Col>
 				<Col xl={12} sm={24} xs={24}>
 					<BandAdd addBand={addBand} />
