@@ -1,26 +1,47 @@
 import express from 'express';
 import http from 'http';
-import { Server } from 'socket.io';
+import { Server as ServerIO } from 'socket.io';
+import cors from 'cors';
 import { envs } from './config/envs';
+import { Sockets } from './sockets';
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: envs.CORS
-  }
-});
+export class Server {
 
-io.on('connection', (socket) => {
-  console.log('a user connected with id', socket.id);
-  socket.emit('message-welcome', 'Hello from server');
+	private readonly app: express.Application;
+	private readonly port: number;
+	private readonly server: http.Server;
+	private readonly io: ServerIO;
 
-  io.on('message-client', (payload) => {
-    console.log('message-client', payload);
-  });
+	constructor() {
+		this.app = express();
+		this.port = envs.PORT;
 
-});
+		this.server = http.createServer(this.app);
 
-server.listen(envs.PORT, () => {
-  console.log(`listening on *:${envs.PORT}`);
-});
+		this.io = new ServerIO(this.server, {
+			cors: {
+				origin: envs.CORS
+			}
+		});
+
+	}
+
+	middlewares() {
+		this.app.use(cors());
+	}
+
+	configSockets() {
+		new Sockets(this.io);
+	}
+
+	execute() {
+		this.middlewares();
+
+		this.configSockets();
+
+		this.server.listen(this.port, () => {
+			console.log('Server running at port:', this.port);
+		});
+	}
+
+}

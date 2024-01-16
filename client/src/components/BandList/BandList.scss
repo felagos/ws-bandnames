@@ -1,0 +1,27 @@
+.table {
+	overflow-x: scroll;
+
+	&--center {
+		text-align: center;
+	}
+
+	td:nth-child(2),
+	td:nth-child(3) {
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	&__btn {
+		&--50 {
+			width: 50%;
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.table {
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
