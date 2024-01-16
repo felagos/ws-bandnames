@@ -20,7 +20,7 @@ export const useSocketContext = () => useContext(SocketContext);
 export const SocketProvider: React.FC<Props> = ({ children }) => {
 	const { socket, isOnline } = useSocket(URL_SOCKET);
 
-	const value = {
+	const value: SocketContextProps = {
 		socket,
 		isOnline
 	};
