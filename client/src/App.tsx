@@ -1,38 +1,23 @@
 import { useEffect, useState } from "react";
 import { Col, Divider, Row } from "antd";
 import { BandAdd, BandList, Layout, Status } from "./components";
-import io from "socket.io-client";
+import { Band } from "./models";
+import { useSocket } from "./hooks";
 
 import "./App.scss";
-import { Band } from "./models";
 
+const URL_SOCKET = "http://localhost:3000";
 
-const connectSocket = () => {
-	const socket = io("http://localhost:3000");
-	return socket;
-}
-
-const socket = connectSocket();
 
 export const App = () => {
-	const [isOnline, setIsOnline] = useState(socket.connected);
+	const { socket, isOnline } = useSocket(URL_SOCKET);
 	const [bands, setBands] = useState<Band[]>([]);
-
-	useEffect(() => {
-		socket.on('connect', () => {
-			setIsOnline(true);
-		});
-
-		socket.on('disconnect', () => {
-			setIsOnline(false);
-		});
-	}, []);
 
 	useEffect(() => {
 		socket.on('current-bands', (bands: Band[]) => {
 			setBands(bands);
 		});
-	}, []);
+	}, [socket]);
 
 	const addVote = (id: string) => () => {
 		socket.emit('add-vote', id);
